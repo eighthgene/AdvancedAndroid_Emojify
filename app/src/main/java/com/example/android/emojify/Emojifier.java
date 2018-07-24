@@ -29,6 +29,7 @@ import com.google.android.gms.vision.face.FaceDetector;
 class Emojifier {
 
     private static final String LOG_TAG = Emojifier.class.getSimpleName();
+    private static final String TAG = Emojifier.class.getSimpleName();
 
     /**
      * Method for detecting faces in a bitmap.
@@ -59,10 +60,21 @@ class Emojifier {
         }
 
         // TODO (2): Iterate through the faces, calling getClassifications() for each face.
-
+        getClassifications(faces);
         // Release the detector
         detector.release();
     }
 
-    // TODO (1): Create a static method called getClassifications() which logs the probability of each eye being open and that the person is smiling.
+    // COMPLETED (1): Create a static method called getClassifications() which logs the probability of each eye being open and that the person is smiling.
+
+    private static void getClassifications(SparseArray<Face> faces){
+
+        for (int i = 0; i < faces.size(); i++) {
+            Face face = faces.valueAt(i);
+            Log.i(TAG, "getClassifications: Left eye -> " + face.getIsLeftEyeOpenProbability());
+            Log.i(TAG, "getClassifications: Right eye -> " + face.getIsRightEyeOpenProbability());
+            Log.i(TAG, "getClassifications: Smiling -> " + face.getIsSmilingProbability());
+        }
+
+    }
 }
